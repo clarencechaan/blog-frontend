@@ -1,0 +1,101 @@
+.feed-item {
+  width: 382px;
+  display: flex;
+  flex-direction: column;
+  color: rgb(141, 141, 141);
+  overflow: hidden;
+}
+
+.feed-item .img-container {
+  display: flex;
+  position: relative;
+}
+
+.feed-item .img-container img {
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: 0.5s;
+}
+
+.feed-item .img-container:hover img {
+  transform: scale(1.15);
+}
+
+.feed-item .img-container .blue-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(71, 201, 229);
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.feed-item .img-container:hover .blue-overlay {
+  opacity: 0.8;
+}
+
+.feed-item .content-preview {
+  display: flex;
+  flex-direction: column;
+  height: 263px;
+  background-color: white;
+  padding: 32px 50px 0 50px;
+  position: relative;
+}
+
+.feed-item .content-preview .by-line {
+  font-size: 12px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.feed-item .content-preview .by-line span {
+  margin-right: 12px;
+}
+
+.feed-item .content-preview .title {
+  font-weight: 700;
+  font-size: 28px;
+  color: rgb(63, 63, 63);
+  margin-top: 12px;
+}
+
+.feed-item .content-preview .body {
+  margin-top: 12px;
+  font-family: "Raleway", sans-serif;
+  line-height: 24px;
+  flex: 1;
+}
+
+.feed-item .content-preview .full-name {
+  font-size: 13px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  margin-left: -50px;
+  padding-left: 50px;
+  border-top: 1px solid rgb(233, 233, 233);
+  width: 190px;
+}
+
+.feed-item .content-preview .comment-badge {
+  width: 64px;
+  height: 40px;
+  background-color: rgb(246, 246, 246);
+  position: absolute;
+  bottom: 40px;
+  left: 270px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 6px;
+  font-size: 12px;
+  transition: 0.5s;
+}
+
+.feed-item .content-preview .comment-badge:hover {
+  background-color: rgba(71, 201, 229, 0.8);
+  color: white;
+}
