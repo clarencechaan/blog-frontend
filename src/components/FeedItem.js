@@ -1,11 +1,11 @@
 import "../styles/FeedItem.css";
 import { ChatCircle, Link, MagnifyingGlassPlus } from "phosphor-react";
 
-function FeedItem() {
+function FeedItem({ imgUrl }) {
   return (
     <div className="feed-item">
       <div className="img-container">
-        <img src="https://i.imgur.com/osBpkIK.jpg" alt="" />
+        <img src={imgUrl} alt="" />
         <div className="blue-overlay">
           <a href="##" className="post-link">
             <div className="badge">

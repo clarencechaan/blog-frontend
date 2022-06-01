@@ -1,3 +1,12 @@
 .feed {
   padding: 60px 30px 60px 30px;
+  display: flex;
+  column-gap: 30px;
+  align-items: flex-start;
+}
+
+.feed-col {
+  display: flex;
+  flex-direction: column;
+  row-gap: 45px;
 }
