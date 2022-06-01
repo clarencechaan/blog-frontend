@@ -3,10 +3,7 @@ import FeedItem from "./FeedItem";
 import "../styles/Feed.css";
 
 function Feed() {
-  const [feedColumns, setFeedColumns] = useState(null);
-  const [heights, setHeights] = useState([]);
-  const colRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
-  const aggregateRef = useRef(null);
+  const [feedColumns, setFeedColumns] = useState([[], [], [], []]);
   const images = [
     "https://i.imgur.com/osBpkIK.jpg",
     "https://i.imgur.com/gCy94rL.jpg",
@@ -27,65 +24,26 @@ function Feed() {
   ];
 
   useEffect(() => {
-    setHeights(() => {
-      let result = [];
+    setFeedColumns(() => {
+      let result = [[], [], [], []];
       for (let i = 0; i < images.length; i++) {
-        if (aggregateRef.current) {
-          result.push(
-            aggregateRef.current &&
-              aggregateRef.current.children[i].clientHeight
-          );
-        }
+        result[i % 4].push(images[i]);
       }
       return result;
     });
   }, []);
 
-  useEffect(() => {
-    setFeedColumns(() => {
-      let result = [[], [], [], []];
-      const order = getFeedColumnOrder();
-
-      for (let i = 0; i < order.length; i++) {
-        result[order[i]].push(images[i]);
-      }
-
-      console.log(order);
-      return result;
-    });
-  }, [heights]);
-
-  function getFeedColumnOrder() {
-    let colHeights = [0, 0, 0, 0];
-    let order = [];
-    for (const height of heights) {
-      const minIdx = colHeights.indexOf(Math.min(...colHeights));
-      order.push(minIdx);
-      colHeights[minIdx] += +height;
-    }
-    return order;
-  }
-
   function getFeedColumns() {
-    if (!feedColumns) {
+    return feedColumns.map((col, idx) => {
+      console.log(col);
       return (
-        <div className="aggregate feed-col" ref={aggregateRef}>
-          {images.map((img, idx) => (
+        <div className="feed-col">
+          {col.map((img) => (
             <FeedItem imgUrl={img} />
           ))}
         </div>
       );
-    } else {
-      return feedColumns.map((col, idx) => {
-        return (
-          <div className="feed-col" ref={colRefs[idx]}>
-            {col.map((img) => (
-              <FeedItem imgUrl={img} />
-            ))}
-          </div>
-        );
-      });
-    }
+    });
   }
 
   return (
