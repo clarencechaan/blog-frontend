@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import FeedItem from "./FeedItem";
 import "../styles/Feed.css";
 
@@ -21,6 +21,7 @@ function Feed() {
     "https://i.imgur.com/paGJsVN.jpg",
     "https://i.imgur.com/PxVQOVY.jpg",
     "https://i.imgur.com/N5JMdA1.jpg",
+    "https://i.imgur.com/BXx0Cbo.jpg",
   ];
 
   useEffect(() => {
@@ -35,7 +36,6 @@ function Feed() {
 
   function getFeedColumns() {
     return feedColumns.map((col, idx) => {
-      console.log(col);
       return (
         <div className="feed-col">
           {col.map((img) => (

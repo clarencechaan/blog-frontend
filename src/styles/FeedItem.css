@@ -27,6 +27,8 @@
 .feed-item .img-container {
   display: flex;
   position: relative;
+  min-height: 120px;
+  max-height: 500px;
 }
 
 .feed-item .img-container img {
