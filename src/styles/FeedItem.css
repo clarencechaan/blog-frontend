@@ -58,10 +58,15 @@
 }
 
 .feed-item .img-container .blue-overlay .post-link {
+  width: 50%;
+  height: 100%;
+}
+
+.feed-item .img-container .blue-overlay .post-link a {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  width: 50%;
+  width: 100%;
   height: 100%;
 }
 

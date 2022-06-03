@@ -24,14 +24,38 @@ function Feed() {
     "https://i.imgur.com/BXx0Cbo.jpg",
   ];
 
-  useEffect(() => {
+  function setNumOfColumns(num) {
+    console.log(window.innerWidth, num);
     setFeedColumns(() => {
-      let result = [[], [], [], []];
+      let result = [];
+      for (let i = 0; i < num; i++) {
+        result.push([]);
+      }
       for (let i = 0; i < images.length; i++) {
-        result[i % 4].push(images[i]);
+        result[i % num].push(images[i]);
       }
       return result;
     });
+  }
+
+  function setFeed() {
+    if (window.innerWidth >= 1680) {
+      setNumOfColumns(4);
+    } else if (window.innerWidth >= 1268) {
+      setNumOfColumns(3);
+    } else if (window.innerWidth >= 826) {
+      setNumOfColumns(2);
+    } else if (window.innerWidth >= 384) {
+      setNumOfColumns(1);
+    }
+  }
+
+  useEffect(() => {
+    setFeed();
+    window.matchMedia("(min-width:1680px)").addEventListener("change", setFeed);
+    window.matchMedia("(max-width:1268px)").addEventListener("change", setFeed);
+    window.matchMedia("(max-width:826px)").addEventListener("change", setFeed);
+    window.matchMedia("(max-width:384px)").addEventListener("change", setFeed);
   }, []);
 
   function getFeedColumns() {
