@@ -1,0 +1,29 @@
+.post {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 100px;
+  border-bottom: 1px solid lightgray;
+}
+
+.header .logo {
+  font-weight: 700;
+  font-size: 32px;
+  text-align: left;
+  margin-left: 240px;
+  margin-top: 24px;
+  color: rgb(63, 63, 63);
+}
+
+.content-type-bar {
+  font-weight: 700;
+  background-color: rgb(251, 251, 251);
+  height: 80px;
+  color: rgb(63, 63, 63);
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  padding-left: 240px;
+}

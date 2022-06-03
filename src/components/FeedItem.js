@@ -1,4 +1,9 @@
-import { ChatCircle, Link, MagnifyingGlassPlus } from "phosphor-react";
+import {
+  ChatCircle,
+  Link as LinkIcon,
+  MagnifyingGlassPlus,
+} from "phosphor-react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import "../styles/FeedItem.css";
 import ImagePreview from "./ImagePreview";
@@ -21,10 +26,12 @@ function FeedItem({ imgUrl }) {
         <div className="img-container">
           <img src={imgUrl} alt="" />
           <div className="blue-overlay">
-            <a href="##" className="post-link">
-              <div className="badge">
-                <Link size={24} />
-              </div>
+            <a className="post-link">
+              <Link to="/posts/:postId">
+                <div className="badge">
+                  <LinkIcon size={24} />
+                </div>
+              </Link>
             </a>
             <button className="full-size" onClick={toggleImagePreview}>
               <div className="badge">
@@ -36,15 +43,15 @@ function FeedItem({ imgUrl }) {
         <div className="content-preview">
           <div className="by-line">
             by{" "}
-            <a href="##" className="author">
-              shufflehound
+            <a className="author">
+              <Link to="/posts/:postId">shufflehound</Link>
             </a>
-            <a href="##" className="date">
-              November 23, 2016
+            <a className="date">
+              <Link to="/posts/:postId">November 23, 2016</Link>
             </a>
           </div>
-          <a href="##" className="title">
-            Trip that you’ll never ever forget
+          <a className="title">
+            <Link to="/posts/:postId">Trip that you’ll never ever forget</Link>
           </a>
           <div className="body">
             Quisque dictum eros nisl, a maximus massa accumsan non. Aliquam erat
@@ -56,10 +63,12 @@ function FeedItem({ imgUrl }) {
             at finibus dui. Praesent…
           </div>
           <div className="full-name">RICARDO VALENTINE</div>
-          <a href="##" className="comment-badge">
-            <ChatCircle size={18} />
-            <div className="count">0</div>
-          </a>
+          <Link to="/posts/:postId">
+            <a className="comment-badge">
+              <ChatCircle size={18} />
+              <div className="count">0</div>
+            </a>
+          </Link>
         </div>
       </div>
     </div>
