@@ -2,4 +2,15 @@ footer {
   height: 140px;
   background-color: rgb(38, 38, 38);
   margin-top: 26px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+footer a {
+  font-weight: 600;
+  color: rgba(71, 201, 229);
+  text-decoration: underline;
 }
