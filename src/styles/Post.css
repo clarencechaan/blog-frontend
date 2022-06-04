@@ -80,6 +80,8 @@
   color: rgb(141, 141, 141);
   margin-top: 10px;
   display: flex;
+  border-bottom: 1px solid rgb(229, 229, 229);
+  padding-bottom: 23px;
 }
 
 .post .content .main .by-line > * {
@@ -98,4 +100,20 @@
 
 .post .content .main .by-line .count {
   margin-left: 6px;
+}
+
+.post .content .main .text {
+  font-family: "Raleway", sans-serif;
+  color: rgb(141, 141, 141);
+  margin-top: 24px;
+  line-height: 25px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgb(229, 229, 229);
+  margin-bottom: 45px;
+}
+
+.post .content .main .text::first-letter {
+  font-size: 30px;
+  font-weight: 700;
+  margin-right: 16px;
 }

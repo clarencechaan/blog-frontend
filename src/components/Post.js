@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ChatText } from "phosphor-react";
 import Sidebar from "./Sidebar";
 import ImagePreview from "./ImagePreview";
+import CommentForm from "./CommentForm";
 
 function Post() {
   const [imgPreviewVisible, setImgPreviewVisible] = useState(false);
@@ -48,6 +49,21 @@ function Post() {
                 <span className="count">0</span>
               </a>
             </div>
+            <div className="text">
+              Quisque dictum eros nisl, a maximus massa accumsan non. Aliquam
+              erat volutpat. Quisque at finibus dui. Praesent cursus, dui sed
+              tempus mollis, turpis ex porta lacus, ut egestas justo nibh in
+              nisi. Donec arcu enim, congue in nunc ut, cursus sollicitudin
+              urna. Pellentesque magna purus, accumsan varius mi et, gravida
+              consectetur purus. Etiam mattis molestie aliquet. Aenean diam
+              enim, faucibus et sodales id, iaculis vitae lectus. Duis sed
+              consequat quam. Ut tincidunt eleifend pretium. Suspendisse nisl
+              turpis, dapibus ac vestibulum nec, venenatis eu arcu. Etiam et
+              fermentum ante. Curabitur eget diam sem. Fusce pulvinar turpis vel
+              arcu pharetra bibendum. Integer leo libero, convallis nec nisi eu,
+              aliquam tempus leo.
+            </div>
+            <CommentForm />
           </div>
           <Sidebar />
         </div>
