@@ -1,0 +1,38 @@
+#comments:target {
+  scroll-margin-top: 30px;
+}
+
+.comments-title {
+  margin-bottom: 24px;
+}
+
+.comments-feed {
+  margin-bottom: 30px;
+  background-color: rgb(247, 247, 247);
+  padding: 8px 24px 8px 24px;
+  border-radius: 6px;
+}
+
+.comment {
+  font-family: "Raleway", sans-serif;
+  color: rgb(141, 141, 141);
+  padding: 16px 0 16px 0;
+}
+
+.comment:not(:last-child) {
+  border-bottom: 1px solid rgb(212, 212, 212);
+}
+
+.comment .by-line {
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment .by-line .username {
+  font-weight: 600;
+}
+
+.comment .text {
+  line-height: 25px;
+}

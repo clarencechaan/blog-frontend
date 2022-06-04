@@ -5,6 +5,8 @@ import { ChatText } from "phosphor-react";
 import Sidebar from "./Sidebar";
 import ImagePreview from "./ImagePreview";
 import CommentForm from "./CommentForm";
+import CommentsFeed from "./CommentsFeed";
+import hero from "../images/hero.jpg";
 
 function Post() {
   const [imgPreviewVisible, setImgPreviewVisible] = useState(false);
@@ -19,9 +21,7 @@ function Post() {
         <div className="logo">
           <Link to="/">webrite</Link>
         </div>
-      </div>
-      <div className="content-type-bar">
-        <div className="content-type-title">Blog Post</div>
+        <img src={hero} alt="" />
       </div>
       <div className="content-container">
         <div className="content">
@@ -44,7 +44,7 @@ function Post() {
               <span className="username">by shufflehound</span>
               <span>November 23, 2016</span>
               <span className="full-name">RICARDO VALENTINE</span>
-              <a href="#">
+              <a href="#comments">
                 <ChatText size={18} />
                 <span className="count">0</span>
               </a>
@@ -63,6 +63,7 @@ function Post() {
               arcu pharetra bibendum. Integer leo libero, convallis nec nisi eu,
               aliquam tempus leo.
             </div>
+            <CommentsFeed />
             <CommentForm />
           </div>
           <Sidebar />
