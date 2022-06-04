@@ -26,13 +26,13 @@ function FeedItem({ imgUrl }) {
         <div className="img-container">
           <img src={imgUrl} alt="" />
           <div className="blue-overlay">
-            <a className="post-link">
+            <div className="post-link">
               <Link to="/posts/:postId">
                 <div className="badge">
                   <LinkIcon size={24} />
                 </div>
               </Link>
-            </a>
+            </div>
             <button className="full-size" onClick={toggleImagePreview}>
               <div className="badge">
                 <MagnifyingGlassPlus size={24} />
@@ -43,16 +43,16 @@ function FeedItem({ imgUrl }) {
         <div className="content-preview">
           <div className="by-line">
             by{" "}
-            <a className="author">
+            <span className="author">
               <Link to="/posts/:postId">shufflehound</Link>
-            </a>
-            <a className="date">
+            </span>
+            <span className="date">
               <Link to="/posts/:postId">November 23, 2016</Link>
-            </a>
+            </span>
           </div>
-          <a className="title">
+          <h2 className="title">
             <Link to="/posts/:postId">Trip that you’ll never ever forget</Link>
-          </a>
+          </h2>
           <div className="body">
             Quisque dictum eros nisl, a maximus massa accumsan non. Aliquam erat
             volutpat. Quisque at finibus dui. Quisque dictum eros nisl, a
@@ -64,10 +64,10 @@ function FeedItem({ imgUrl }) {
           </div>
           <div className="full-name">RICARDO VALENTINE</div>
           <Link to="/posts/:postId">
-            <a className="comment-badge">
+            <div className="comment-badge">
               <ChatCircle size={18} />
               <div className="count">0</div>
-            </a>
+            </div>
           </Link>
         </div>
       </div>

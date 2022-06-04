@@ -1,0 +1,68 @@
+.sidebar {
+  width: 300px;
+}
+
+.sidebar .title {
+  color: rgb(80, 80, 80);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sidebar .item {
+  display: flex;
+  padding-bottom: 15px;
+  margin-top: 25px;
+}
+
+.sidebar .item:not(:last-child) {
+  border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.sidebar .item img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sidebar .item .info {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .item .info .full-name {
+  color: rgb(141, 141, 141);
+  font-size: 13px;
+  margin-top: 3px;
+  margin-bottom: 7px;
+}
+
+.sidebar .item .img-container {
+  margin-right: 19px;
+  width: 76px;
+  height: 76px;
+  position: relative;
+}
+
+.sidebar .item .img-container .blue-overlay {
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar .item .img-container .comment-badge {
+  position: absolute;
+  height: 17px;
+  right: 2px;
+  top: 2px;
+  padding: 0 6px 0 6px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  color: white;
+  background-color: rgb(71, 201, 229);
+  border-radius: 9px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+}
