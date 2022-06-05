@@ -3,39 +3,15 @@ import FeedItem from "./FeedItem";
 import "../styles/Feed.css";
 
 function Feed() {
-  const [feedColumns, setFeedColumns] = useState([[], [], [], []]);
-  const images = [
-    "https://i.imgur.com/osBpkIK.jpg",
-    "https://i.imgur.com/gCy94rL.jpg",
-    "https://i.imgur.com/fvWfAZG.jpg",
-    "https://i.imgur.com/JukeT5D.jpg",
-    "https://i.imgur.com/LMKzlkq.jpg",
-    "https://i.imgur.com/paGJsVN.jpg",
-    "https://i.imgur.com/PxVQOVY.jpg",
-    "https://i.imgur.com/N5JMdA1.jpg",
-    "https://i.imgur.com/osBpkIK.jpg",
-    "https://i.imgur.com/gCy94rL.jpg",
-    "https://i.imgur.com/fvWfAZG.jpg",
-    "https://i.imgur.com/JukeT5D.jpg",
-    "https://i.imgur.com/LMKzlkq.jpg",
-    "https://i.imgur.com/paGJsVN.jpg",
-    "https://i.imgur.com/PxVQOVY.jpg",
-    "https://i.imgur.com/N5JMdA1.jpg",
-    "https://i.imgur.com/BXx0Cbo.jpg",
-  ];
+  const [numOfColumns, setNumOfColumns] = useState(4);
+  const [posts, setPosts] = useState([]);
 
-  function setNumOfColumns(num) {
-    console.log(window.innerWidth, num);
-    setFeedColumns(() => {
-      let result = [];
-      for (let i = 0; i < num; i++) {
-        result.push([]);
-      }
-      for (let i = 0; i < images.length; i++) {
-        result[i % num].push(images[i]);
-      }
-      return result;
-    });
+  async function fetchFeed() {
+    const response = await fetch("http://localhost:3000/api/posts");
+    const posts = await response.json();
+    console.log(posts);
+    setPosts(posts);
+    setFeed();
   }
 
   function setFeed() {
@@ -50,8 +26,19 @@ function Feed() {
     }
   }
 
+  function getFeedArray() {
+    let columns = [];
+    for (let i = 0; i < numOfColumns; i++) {
+      columns.push([]);
+    }
+    for (let i = 0; i < posts.length; i++) {
+      columns[i % numOfColumns].push(posts[i]);
+    }
+    return columns;
+  }
+
   useEffect(() => {
-    setFeed();
+    fetchFeed();
     window.matchMedia("(min-width:1680px)").addEventListener("change", setFeed);
     window.matchMedia("(max-width:1268px)").addEventListener("change", setFeed);
     window.matchMedia("(max-width:826px)").addEventListener("change", setFeed);
@@ -59,11 +46,17 @@ function Feed() {
   }, []);
 
   function getFeedColumns() {
-    return feedColumns.map((col, idx) => {
+    return getFeedArray().map((col, idx) => {
       return (
         <div className="feed-col">
-          {col.map((img) => (
-            <FeedItem imgUrl={img} />
+          {col.map((post) => (
+            <FeedItem
+              author={post.author}
+              title={post.title}
+              body={post.body}
+              publish_date={post.publish_date}
+              imgUrl={post.img_url}
+            />
           ))}
         </div>
       );
