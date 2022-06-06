@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import FeedItem from "./FeedItem";
 import "../styles/Feed.css";
 
@@ -6,15 +6,49 @@ function Feed() {
   const [numOfColumns, setNumOfColumns] = useState(4);
   const [posts, setPosts] = useState([]);
 
+  useEffect(() => {
+    fetchFeed();
+    updateNumOfCols();
+    window
+      .matchMedia("(min-width:1680px)")
+      .addEventListener("change", updateNumOfCols);
+    window
+      .matchMedia("(max-width:1268px)")
+      .addEventListener("change", updateNumOfCols);
+    window
+      .matchMedia("(max-width:826px)")
+      .addEventListener("change", updateNumOfCols);
+    window
+      .matchMedia("(max-width:384px)")
+      .addEventListener("change", updateNumOfCols);
+  }, []);
+
   async function fetchFeed() {
     const response = await fetch("http://localhost:3000/api/posts");
     const posts = await response.json();
-    console.log(posts);
     setPosts(posts);
-    setFeed();
   }
 
-  function setFeed() {
+  function updateHeights() {
+    const feedItems = document.querySelectorAll(".feed-item");
+    let heights = {};
+    for (const item of feedItems) {
+      const height = item.clientHeight;
+      heights[item.id] = height;
+    }
+
+    if (Object.keys(heights).length && posts.length) {
+      setPosts((prev) => {
+        const result = [...prev];
+        for (const post of result) {
+          post.height = heights[post._id];
+        }
+        return result;
+      });
+    }
+  }
+
+  function updateNumOfCols() {
     if (window.innerWidth >= 1680) {
       setNumOfColumns(4);
     } else if (window.innerWidth >= 1268) {
@@ -27,47 +61,35 @@ function Feed() {
   }
 
   function getFeedArray() {
+    let columnHeights = [];
     let columns = [];
     for (let i = 0; i < numOfColumns; i++) {
       columns.push([]);
+      columnHeights.push(0);
     }
-    for (let i = 0; i < posts.length; i++) {
-      columns[i % numOfColumns].push(posts[i]);
+    for (const post of posts) {
+      const colIdx = columnHeights.indexOf(Math.min(...columnHeights));
+      columns[colIdx].push(post);
+      if (post.height) {
+        columnHeights[colIdx] += post.height;
+      }
     }
     return columns;
   }
-
-  useEffect(() => {
-    fetchFeed();
-    window.matchMedia("(min-width:1680px)").addEventListener("change", setFeed);
-    window.matchMedia("(max-width:1268px)").addEventListener("change", setFeed);
-    window.matchMedia("(max-width:826px)").addEventListener("change", setFeed);
-    window.matchMedia("(max-width:384px)").addEventListener("change", setFeed);
-  }, []);
 
   function getFeedColumns() {
     return getFeedArray().map((col, idx) => {
       return (
         <div className="feed-col">
           {col.map((post) => (
-            <FeedItem
-              author={post.author}
-              title={post.title}
-              body={post.body}
-              publish_date={post.publish_date}
-              imgUrl={post.img_url}
-            />
+            <FeedItem post={post} updateHeights={updateHeights} />
           ))}
         </div>
       );
     });
   }
 
-  return (
-    <div>
-      <div className="feed">{getFeedColumns()}</div>
-    </div>
-  );
+  return <div className="feed">{getFeedColumns()}</div>;
 }
 
 export default Feed;

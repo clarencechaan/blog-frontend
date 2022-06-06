@@ -4,27 +4,42 @@ import {
   MagnifyingGlassPlus,
 } from "phosphor-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/FeedItem.css";
 import ImagePreview from "./ImagePreview";
 
-function FeedItem({ imgUrl }) {
+function FeedItem({ post, updateHeights }) {
+  const { author, title, body, publish_date, img_url } = post;
   const [imgPreviewVisible, setImgPreviewVisible] = useState(false);
+  const [hidden, setHidden] = useState(true);
 
   function toggleImagePreview() {
     setImgPreviewVisible((prev) => !prev);
   }
 
+  useEffect(() => {
+    setImgPreviewVisible(false);
+  }, [post]);
+
   return (
-    <div className="feed-item-container">
+    <div
+      className={hidden ? "feed-item-container hidden" : "feed-item-container"}
+    >
       <ImagePreview
         visible={imgPreviewVisible}
-        imgUrl={imgUrl}
+        imgUrl={img_url}
         toggleImagePreview={toggleImagePreview}
       />
-      <div className="feed-item">
+      <div className="feed-item" id={post._id}>
         <div className="img-container">
-          <img src={imgUrl} alt="" />
+          <img
+            src={img_url}
+            alt=""
+            onLoad={() => {
+              updateHeights();
+              setHidden(false);
+            }}
+          />
           <div className="blue-overlay">
             <div className="post-link">
               <Link to="/posts/:postId">
@@ -44,25 +59,19 @@ function FeedItem({ imgUrl }) {
           <div className="by-line">
             by{" "}
             <span className="author">
-              <Link to="/posts/:postId">shufflehound</Link>
+              <Link to="/posts/:postId">{author.username}</Link>
             </span>
             <span className="date">
               <Link to="/posts/:postId">November 23, 2016</Link>
             </span>
           </div>
           <h2 className="title">
-            <Link to="/posts/:postId">Trip that you’ll never ever forget</Link>
+            <Link to="/posts/:postId">{title}</Link>
           </h2>
-          <div className="body">
-            Quisque dictum eros nisl, a maximus massa accumsan non. Aliquam erat
-            volutpat. Quisque at finibus dui. Quisque dictum eros nisl, a
-            maximus massa accumsan non. Aliquam erat volutpat. Quisque at
-            finibus dui.Quisque dictum eros nisl, a maximus massa accumsan non.
-            Aliquam erat volutpat. Quisque at finibus dui.Quisque dictum eros
-            nisl, a maximus massa accumsan non. Aliquam erat volutpat. Quisque
-            at finibus dui. Praesent…
+          <div className="body">{body}</div>
+          <div className="full-name">
+            {(author.first_name + " " + author.last_name).toUpperCase()}
           </div>
-          <div className="full-name">RICARDO VALENTINE</div>
           <Link to="/posts/:postId">
             <div className="comment-badge">
               <ChatCircle size={18} />

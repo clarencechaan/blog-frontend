@@ -10,6 +10,12 @@ body {
   min-height: 100vh;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -29,7 +35,7 @@ h1 {
 }
 
 h2 {
-  font-size: 28px;
+  font-size: 24px;
 }
 
 h3 {
@@ -39,4 +45,10 @@ h3 {
 h4 {
   font-family: "Raleway", sans-serif;
   font-size: 14px;
+}
+
+.hidden {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
 }
