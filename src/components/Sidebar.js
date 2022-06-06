@@ -1,14 +1,13 @@
 import "../styles/Sidebar.css";
 import SidebarItem from "./SidebarItem";
 
-function Sidebar() {
+function Sidebar({ latestPosts }) {
   return (
     <div className="sidebar">
       <div className="title">Latest posts</div>
-      <SidebarItem />
-      <SidebarItem />
-      <SidebarItem />
-      <SidebarItem />
+      {latestPosts.map((post) => (
+        <SidebarItem post={post} />
+      ))}
     </div>
   );
 }

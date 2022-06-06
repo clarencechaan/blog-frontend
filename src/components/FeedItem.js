@@ -7,14 +7,30 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../styles/FeedItem.css";
 import ImagePreview from "./ImagePreview";
+import { formatDate } from "../scripts/datetimeConversion";
 
 function FeedItem({ post, updateHeights }) {
   const { author, title, body, publish_date, img_url } = post;
   const [imgPreviewVisible, setImgPreviewVisible] = useState(false);
   const [hidden, setHidden] = useState(true);
+  const [commentCount, setCommentCount] = useState(0);
+
+  const linkUrl = "/posts/" + post._id;
+
+  useEffect(() => {
+    fetchCommentCount();
+  });
 
   function toggleImagePreview() {
     setImgPreviewVisible((prev) => !prev);
+  }
+
+  async function fetchCommentCount() {
+    const url = "http://localhost:3000/api/posts/" + post._id + "/comments";
+    const response = await fetch(url);
+    const comments = await response.json();
+    setCommentCount(comments.length);
+    return comments.length;
   }
 
   useEffect(() => {
@@ -42,7 +58,7 @@ function FeedItem({ post, updateHeights }) {
           />
           <div className="blue-overlay">
             <div className="post-link">
-              <Link to="/posts/:postId">
+              <Link to={linkUrl}>
                 <div className="badge">
                   <LinkIcon size={24} />
                 </div>
@@ -59,23 +75,23 @@ function FeedItem({ post, updateHeights }) {
           <div className="by-line">
             by{" "}
             <span className="author">
-              <Link to="/posts/:postId">{author.username}</Link>
+              <Link to={linkUrl}>{author.username}</Link>
             </span>
             <span className="date">
-              <Link to="/posts/:postId">November 23, 2016</Link>
+              <Link to={linkUrl}>{formatDate(publish_date)}</Link>
             </span>
           </div>
           <h2 className="title">
-            <Link to="/posts/:postId">{title}</Link>
+            <Link to={linkUrl}>{title}</Link>
           </h2>
           <div className="body">{body}</div>
           <div className="full-name">
             {(author.first_name + " " + author.last_name).toUpperCase()}
           </div>
-          <Link to="/posts/:postId">
+          <Link to={linkUrl}>
             <div className="comment-badge">
               <ChatCircle size={18} />
-              <div className="count">0</div>
+              <div className="count">{commentCount}</div>
             </div>
           </Link>
         </div>

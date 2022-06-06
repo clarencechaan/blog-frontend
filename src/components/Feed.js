@@ -24,7 +24,7 @@ function Feed() {
   }, []);
 
   async function fetchFeed() {
-    const response = await fetch("http://localhost:3000/api/posts");
+    const response = await fetch("http://localhost:3000/api/posts/published");
     const posts = await response.json();
     setPosts(posts);
   }

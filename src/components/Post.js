@@ -1,15 +1,48 @@
 import "../styles/Post.css";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { ChatText } from "phosphor-react";
 import Sidebar from "./Sidebar";
 import ImagePreview from "./ImagePreview";
 import CommentForm from "./CommentForm";
 import CommentsFeed from "./CommentsFeed";
 import hero from "../images/hero.jpg";
+import { formatDate } from "../scripts/datetimeConversion";
 
 function Post() {
   const [imgPreviewVisible, setImgPreviewVisible] = useState(false);
+  const [post, setPost] = useState({});
+  const [comments, setComments] = useState([]);
+  const [latestPosts, setLatestPosts] = useState([]);
+  const { postId } = useParams();
+
+  useEffect(() => {
+    fetchPost();
+    fetchComments();
+    fetchLatestPosts();
+  }, [postId]);
+
+  async function fetchPost() {
+    const response = await fetch("http://localhost:3000/api/posts/" + postId);
+    const post = await response.json();
+    setPost(post);
+  }
+
+  async function fetchComments() {
+    const response = await fetch(
+      "http://localhost:3000/api/posts/" + postId + "/comments"
+    );
+    const comments = await response.json();
+    setComments(comments);
+  }
+
+  async function fetchLatestPosts() {
+    const response = await fetch(
+      "http://localhost:3000/api/posts/published/latest"
+    );
+    const latest = await response.json();
+    setLatestPosts(latest);
+  }
 
   function toggleImagePreview() {
     setImgPreviewVisible((prev) => !prev);
@@ -29,44 +62,40 @@ function Post() {
             <div className="img-container">
               <img
                 className="cropped"
-                src="https://i.imgur.com/osBpkIK.jpg"
+                src={post.img_url}
                 alt=""
                 onClick={toggleImagePreview}
               />
               <ImagePreview
                 visible={imgPreviewVisible}
-                imgUrl="https://i.imgur.com/osBpkIK.jpg"
+                imgUrl={post.img_url}
                 toggleImagePreview={toggleImagePreview}
               />
             </div>
-            <h1 className="title">Trip that you’ll never ever forget</h1>
+            <h1 className="title">{post.title}</h1>
             <div className="by-line">
-              <span className="username">by shufflehound</span>
-              <span>November 23, 2016</span>
-              <span className="full-name">RICARDO VALENTINE</span>
+              <span className="username">
+                by {post.author && post.author.username}
+              </span>
+              <span>{formatDate(post.publish_date)}</span>
+              <span className="full-name">
+                {post.author &&
+                  (
+                    post.author.first_name +
+                    " " +
+                    post.author.last_name
+                  ).toUpperCase()}
+              </span>
               <a href="#comments">
                 <ChatText size={18} />
-                <span className="count">0</span>
+                <span className="count">{comments.length}</span>
               </a>
             </div>
-            <div className="text">
-              Quisque dictum eros nisl, a maximus massa accumsan non. Aliquam
-              erat volutpat. Quisque at finibus dui. Praesent cursus, dui sed
-              tempus mollis, turpis ex porta lacus, ut egestas justo nibh in
-              nisi. Donec arcu enim, congue in nunc ut, cursus sollicitudin
-              urna. Pellentesque magna purus, accumsan varius mi et, gravida
-              consectetur purus. Etiam mattis molestie aliquet. Aenean diam
-              enim, faucibus et sodales id, iaculis vitae lectus. Duis sed
-              consequat quam. Ut tincidunt eleifend pretium. Suspendisse nisl
-              turpis, dapibus ac vestibulum nec, venenatis eu arcu. Etiam et
-              fermentum ante. Curabitur eget diam sem. Fusce pulvinar turpis vel
-              arcu pharetra bibendum. Integer leo libero, convallis nec nisi eu,
-              aliquam tempus leo.
-            </div>
-            <CommentsFeed />
+            <div className="text">{post.body}</div>
+            <CommentsFeed comments={comments} />
             <CommentForm />
           </div>
-          <Sidebar />
+          <Sidebar latestPosts={latestPosts} />
         </div>
       </div>
     </div>

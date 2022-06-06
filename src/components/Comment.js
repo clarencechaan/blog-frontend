@@ -1,15 +1,13 @@
-function Comment() {
+import { getTimeAgo } from "../scripts/datetimeConversion";
+
+function Comment({ comment }) {
   return (
     <div className="comment">
       <div className="by-line">
-        <span className="username">shufflehound</span>
-        <span>12 minutes ago</span>
+        <span className="username">{comment.name}</span>
+        <span>{getTimeAgo(comment.timestamp)}</span>
       </div>
-      <div className="text">
-        Quisque dictum eros nisl, a maximus massa accumsan non. Aliquam erat
-        volutpat. Quisque at finibus dui. Praesent cursus, dui sed tempus
-        mollis, turpis ex porta lacus, ut egestas justo nibh in nisi.
-      </div>
+      <div className="text">{comment.text} </div>
     </div>
   );
 }
