@@ -4,11 +4,13 @@ import Hero from "./components/Hero";
 import Feed from "./components/Feed";
 import Post from "./components/Post";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route
             path="/"

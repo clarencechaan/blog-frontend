@@ -8,8 +8,10 @@ function Hero() {
       <div className="content">
         <div className="logo">webrite</div>
         <div className="tagline">
-          <div>Connecting ideas and people</div>
-          <div className="sub">Communication starts here</div>
+          <div>Get the real story</div>
+          <div className="sub">
+            Journalism that is independent, honest, and dignified
+          </div>
         </div>
       </div>
     </div>
