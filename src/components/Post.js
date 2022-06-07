@@ -48,6 +48,20 @@ function Post() {
     setImgPreviewVisible((prev) => !prev);
   }
 
+  function splitText(text) {
+    if (!text) {
+      return;
+    }
+    const arr = text.split("\n");
+    let result = [];
+    for (const line of arr) {
+      result.push(line);
+      result.push(<br />);
+      result.push(<br />);
+    }
+    return result;
+  }
+
   return (
     <div className="post">
       <div className="header">
@@ -91,9 +105,9 @@ function Post() {
                 <span className="count">{comments.length}</span>
               </a>
             </div>
-            <div className="text">{post.body}</div>
+            <div className="text">{splitText(post.body)}</div>
             <CommentsFeed comments={comments} />
-            <CommentForm />
+            <CommentForm postId={postId} />
           </div>
           <Sidebar latestPosts={latestPosts} />
         </div>

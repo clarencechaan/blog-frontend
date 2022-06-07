@@ -9,7 +9,7 @@ function formatDate(date) {
 
 function getTimeAgo(date) {
   const dateObj = new Date(date);
-  const seconds = Date.now() - dateObj;
+  const seconds = Math.floor(Date.now() / 1000 - dateObj / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
 
