@@ -6,7 +6,7 @@ function Sidebar({ latestPosts }) {
     <div className="sidebar">
       <div className="title">Latest posts</div>
       {latestPosts.map((post) => (
-        <SidebarItem post={post} />
+        <SidebarItem post={post} key={post._id} />
       ))}
     </div>
   );

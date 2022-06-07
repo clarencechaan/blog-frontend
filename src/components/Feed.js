@@ -2,12 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import FeedItem from "./FeedItem";
 import "../styles/Feed.css";
 
-function Feed() {
+function Feed({ posts }) {
   const [numOfColumns, setNumOfColumns] = useState(4);
-  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetchFeed();
     updateNumOfCols();
     window
       .matchMedia("(min-width:1680px)")
@@ -23,12 +21,6 @@ function Feed() {
       .addEventListener("change", updateNumOfCols);
   }, []);
 
-  async function fetchFeed() {
-    const response = await fetch("http://localhost:3000/api/posts/published");
-    const posts = await response.json();
-    setPosts(posts);
-  }
-
   function getFeedItems() {
     let columns = [];
     for (let i = 0; i < numOfColumns; i++) {
@@ -37,10 +29,10 @@ function Feed() {
     for (let i = 0; i < posts.length; i++) {
       columns[i % numOfColumns].push(posts[i]);
     }
-    return columns.map((col) => (
-      <div className="feed-col">
+    return columns.map((col, idx) => (
+      <div className="feed-col" key={"col" + idx}>
         {col.map((post) => (
-          <FeedItem post={post} />
+          <FeedItem post={post} key={post._id} />
         ))}
       </div>
     ));

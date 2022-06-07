@@ -8,7 +8,7 @@ function CommentsFeed({ comments }) {
       {comments.length ? (
         <div className="comments-feed">
           {comments.map((comment) => (
-            <Comment comment={comment} />
+            <Comment comment={comment} key={comment._id} />
           ))}
         </div>
       ) : null}

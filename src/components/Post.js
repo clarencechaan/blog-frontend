@@ -50,14 +50,12 @@ function Post() {
 
   function splitText(text) {
     if (!text) {
-      return;
+      return [];
     }
     const arr = text.split("\n");
     let result = [];
-    for (const line of arr) {
-      result.push(line);
-      result.push(<br />);
-      result.push(<br />);
+    for (const para of arr) {
+      result.push(para);
     }
     return result;
   }
@@ -105,9 +103,17 @@ function Post() {
                 <span className="count">{comments.length}</span>
               </a>
             </div>
-            <div className="text">{splitText(post.body)}</div>
+            <div className="text">
+              {splitText(post.body).map((para, idx) => (
+                <div key={"para" + idx}>
+                  {para}
+                  <br />
+                  <br />
+                </div>
+              ))}
+            </div>
             <CommentsFeed comments={comments} />
-            <CommentForm postId={postId} />
+            <CommentForm postId={postId} fetchComments={fetchComments} />
           </div>
           <Sidebar latestPosts={latestPosts} />
         </div>
