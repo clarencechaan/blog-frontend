@@ -29,23 +29,21 @@ function Feed() {
     setPosts(posts);
   }
 
-  function updateHeights() {
-    const feedItems = document.querySelectorAll(".feed-item");
-    let heights = {};
-    for (const item of feedItems) {
-      const height = item.clientHeight;
-      heights[item.id] = height;
+  function getFeedItems() {
+    let columns = [];
+    for (let i = 0; i < numOfColumns; i++) {
+      columns.push([]);
     }
-
-    if (Object.keys(heights).length && posts.length) {
-      setPosts((prev) => {
-        const result = [...prev];
-        for (const post of result) {
-          post.height = heights[post._id];
-        }
-        return result;
-      });
+    for (let i = 0; i < posts.length; i++) {
+      columns[i % numOfColumns].push(posts[i]);
     }
+    return columns.map((col) => (
+      <div className="feed-col">
+        {col.map((post) => (
+          <FeedItem post={post} />
+        ))}
+      </div>
+    ));
   }
 
   function updateNumOfCols() {
@@ -60,36 +58,7 @@ function Feed() {
     }
   }
 
-  function getFeedArray() {
-    let columnHeights = [];
-    let columns = [];
-    for (let i = 0; i < numOfColumns; i++) {
-      columns.push([]);
-      columnHeights.push(0);
-    }
-    for (const post of posts) {
-      const colIdx = columnHeights.indexOf(Math.min(...columnHeights));
-      columns[colIdx].push(post);
-      if (post.height) {
-        columnHeights[colIdx] += post.height;
-      }
-    }
-    return columns;
-  }
-
-  function getFeedColumns() {
-    return getFeedArray().map((col, idx) => {
-      return (
-        <div className="feed-col">
-          {col.map((post) => (
-            <FeedItem post={post} updateHeights={updateHeights} />
-          ))}
-        </div>
-      );
-    });
-  }
-
-  return <div className="feed">{getFeedColumns()}</div>;
+  return <div className="feed">{getFeedItems()}</div>;
 }
 
 export default Feed;

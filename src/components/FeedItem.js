@@ -9,10 +9,9 @@ import "../styles/FeedItem.css";
 import ImagePreview from "./ImagePreview";
 import { formatDate } from "../scripts/datetimeConversion";
 
-function FeedItem({ post, updateHeights }) {
+function FeedItem({ post }) {
   const { author, title, body, publish_date, img_url } = post;
   const [imgPreviewVisible, setImgPreviewVisible] = useState(false);
-  const [hidden, setHidden] = useState(true);
   const [commentCount, setCommentCount] = useState(0);
 
   const linkUrl = "/posts/" + post._id;
@@ -38,9 +37,7 @@ function FeedItem({ post, updateHeights }) {
   }, [post]);
 
   return (
-    <div
-      className={hidden ? "feed-item-container hidden" : "feed-item-container"}
-    >
+    <div className="feed-item-container">
       <ImagePreview
         visible={imgPreviewVisible}
         imgUrl={img_url}
@@ -48,14 +45,7 @@ function FeedItem({ post, updateHeights }) {
       />
       <div className="feed-item" id={post._id}>
         <div className="img-container">
-          <img
-            src={img_url}
-            alt=""
-            onLoad={() => {
-              updateHeights();
-              setHidden(false);
-            }}
-          />
+          <img src={img_url} alt="" />
           <div className="blue-overlay">
             <div className="post-link">
               <Link to={linkUrl}>
