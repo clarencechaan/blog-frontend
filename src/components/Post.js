@@ -6,15 +6,18 @@ import Sidebar from "./Sidebar";
 import ImagePreview from "./ImagePreview";
 import CommentForm from "./CommentForm";
 import CommentsFeed from "./CommentsFeed";
+import UserButtons from "./UserButtons";
 import hero from "../images/hero.jpg";
 import { formatDate } from "../scripts/datetimeConversion";
+import { getMe } from "../scripts/localStorage";
 
-function Post() {
+function Post({ setLogged }) {
   const [imgPreviewVisible, setImgPreviewVisible] = useState(false);
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
   const [latestPosts, setLatestPosts] = useState([]);
   const { postId } = useParams();
+  const me = getMe();
 
   useEffect(() => {
     fetchPost();
@@ -63,8 +66,11 @@ function Post() {
   return (
     <div className="post">
       <div className="header">
-        <div className="logo">
-          <Link to="/">webrite</Link>
+        <div className="bar">
+          <div className="logo">
+            <Link to="/">webrite</Link>
+          </div>
+          <UserButtons setLogged={setLogged} />
         </div>
         <img src={hero} alt="" />
       </div>
