@@ -41,11 +41,11 @@ function Feed({ posts }) {
   function updateNumOfCols() {
     if (window.innerWidth >= 1680) {
       setNumOfColumns(4);
-    } else if (window.innerWidth >= 1268) {
+    } else if (window.innerWidth > 1268) {
       setNumOfColumns(3);
-    } else if (window.innerWidth >= 826) {
+    } else if (window.innerWidth > 826) {
       setNumOfColumns(2);
-    } else if (window.innerWidth >= 384) {
+    } else if (window.innerWidth > 384) {
       setNumOfColumns(1);
     }
   }
