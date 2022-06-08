@@ -6,9 +6,12 @@ import Feed from "./components/Feed";
 import Post from "./components/Post";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import LogIn from "./components/LogIn";
+import { isLoggedIn } from "./scripts/localStorage";
 
 function App() {
   const [posts, setPosts] = useState([]);
+  const [logged, setLogged] = useState(isLoggedIn());
 
   useEffect(() => {
     fetchFeed();
@@ -28,7 +31,7 @@ function App() {
             path="/"
             element={
               <>
-                <Hero />
+                <Hero setLogged={setLogged} />
                 <Feed posts={posts} />
               </>
             }
@@ -42,6 +45,7 @@ function App() {
               </>
             }
           />
+          <Route path="/login" element={<LogIn setLogged={setLogged} />} />
         </Routes>
       </Router>
       <Footer />

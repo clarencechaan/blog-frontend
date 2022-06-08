@@ -8,7 +8,6 @@ function CommentForm({ postId, fetchComments }) {
 
     const url = "http://localhost:3000/api/posts/" + postId + "/comments";
     const headers = {
-      Accept: "application/json",
       "Content-Type": "application/json",
     };
 
