@@ -34,12 +34,6 @@
   z-index: -1;
 }
 
-.header form,
-.hero form {
-  display: flex;
-  align-items: center;
-}
-
 .post .content-container {
   display: flex;
   justify-content: center;

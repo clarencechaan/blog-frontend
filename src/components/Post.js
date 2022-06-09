@@ -1,13 +1,12 @@
 import "../styles/Post.css";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ChatText } from "phosphor-react";
 import Sidebar from "./Sidebar";
 import ImagePreview from "./ImagePreview";
 import CommentForm from "./CommentForm";
 import CommentsFeed from "./CommentsFeed";
-import UserButtons from "./UserButtons";
-import hero from "../images/hero.jpg";
+import Header from "./Header";
 import { formatDate } from "../scripts/datetimeConversion";
 import { getMe } from "../scripts/localStorage";
 
@@ -65,15 +64,7 @@ function Post({ setLogged }) {
 
   return (
     <div className="post">
-      <div className="header">
-        <div className="bar">
-          <div className="logo">
-            <Link to="/">webrite</Link>
-          </div>
-          <UserButtons setLogged={setLogged} />
-        </div>
-        <img src={hero} alt="" />
-      </div>
+      <Header setLogged={setLogged} />
       <div className="content-container">
         <div className="content">
           <div className="main">

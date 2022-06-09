@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import Feed from "./components/Feed";
 import Post from "./components/Post";
 import Footer from "./components/Footer";
+import AdminDash from "./components/AdminDash";
 import ScrollToTop from "./components/ScrollToTop";
 import { isLoggedIn } from "./scripts/localStorage";
 
@@ -43,6 +44,10 @@ function App() {
                 <Post setLogged={setLogged} />
               </>
             }
+          />
+          <Route
+            path="/admin"
+            element={<AdminDash setLogged={setLogged} posts={posts} />}
           />
         </Routes>
       </Router>

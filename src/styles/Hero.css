@@ -36,13 +36,13 @@
   margin-left: auto;
   font-size: 18px;
   display: flex;
-  align-items: center;
-  margin-top: auto;
+  flex-direction: column;
   color: white;
+  font-size: 14px;
+  align-items: flex-end;
 }
 
-.user-log-in button,
-.user-log-in input {
+.user-log-in button {
   border: 1px solid white;
   background-color: rgba(0, 0, 0, 0.3);
   font-family: inherit;
@@ -50,35 +50,23 @@
   font-size: inherit;
   margin-left: 24px;
   transition: 0.3s;
-  height: 36px;
+  height: 30px;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   border-radius: 5px;
-}
-
-.user-log-in input {
-  padding-left: 12px;
-  border: 1px solid rgb(214, 214, 214);
-}
-
-.user-log-in input::placeholder {
-  color: rgb(216, 216, 216);
-}
-
-.user-log-in input:focus {
-  border: 1px solid white;
-  outline: none;
-}
-
-.user-log-in button {
-  width: 130px;
+  width: 90px;
   display: flex;
   cursor: pointer;
+  margin-top: 8px;
 }
 
 .user-log-in button:hover {
   background-color: rgba(68, 68, 68, 0.3);
+}
+
+.user-log-in > *:first-child {
+  margin-top: 16px;
 }
 
 .user-log-in .username {
@@ -106,4 +94,14 @@
   font-family: "Raleway", sans-serif;
   margin-top: 20px;
   font-weight: 400;
+}
+
+.admin-prompt {
+  color: white;
+  font-weight: 400;
+  margin-left: auto;
+}
+
+.user-log-in a {
+  text-decoration: underline;
 }
