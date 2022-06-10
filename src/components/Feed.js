@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import FeedItem from "./FeedItem";
 import "../styles/Feed.css";
 
-function Feed({ posts }) {
+function Feed({ publishedPosts }) {
   const [numOfColumns, setNumOfColumns] = useState(4);
 
   useEffect(() => {
@@ -26,8 +26,8 @@ function Feed({ posts }) {
     for (let i = 0; i < numOfColumns; i++) {
       columns.push([]);
     }
-    for (let i = 0; i < posts.length; i++) {
-      columns[i % numOfColumns].push(posts[i]);
+    for (let i = 0; i < publishedPosts.length; i++) {
+      columns[i % numOfColumns].push(publishedPosts[i]);
     }
     return columns.map((col, idx) => (
       <div className="feed-col" key={"col" + idx}>

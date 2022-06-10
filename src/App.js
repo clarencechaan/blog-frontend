@@ -11,6 +11,7 @@ import { isLoggedIn } from "./scripts/localStorage";
 
 function App() {
   const [posts, setPosts] = useState([]);
+  const publishedPosts = posts.filter((post) => post.published);
   const [logged, setLogged] = useState(isLoggedIn());
 
   useEffect(() => {
@@ -18,7 +19,7 @@ function App() {
   }, []);
 
   async function fetchFeed() {
-    const response = await fetch("http://localhost:3000/api/posts/published");
+    const response = await fetch("http://localhost:3000/api/posts");
     const posts = await response.json();
     setPosts(posts);
   }
@@ -32,7 +33,7 @@ function App() {
             element={
               <>
                 <Hero setLogged={setLogged} />
-                <Feed posts={posts} />
+                <Feed publishedPosts={publishedPosts} />
               </>
             }
           />
@@ -47,7 +48,13 @@ function App() {
           />
           <Route
             path="/admin"
-            element={<AdminDash setLogged={setLogged} posts={posts} />}
+            element={
+              <AdminDash
+                setLogged={setLogged}
+                posts={posts}
+                fetchFeed={fetchFeed}
+              />
+            }
           />
         </Routes>
       </Router>

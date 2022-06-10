@@ -3,19 +3,28 @@ import LogIn from "./LogIn";
 import "../styles/AdminDash.css";
 import { isLoggedIn } from "../scripts/localStorage";
 import { getMe } from "../scripts/localStorage";
+import DashPost from "./DashPost";
+import DashNewPost from "./DashNewPost";
 
-function AdminDash({ setLogged, posts }) {
-  const [myPosts, setMyPosts] = posts.filter(
-    (post) => post.author._id === getMe()._id
-  );
+function AdminDash({ setLogged, posts, fetchFeed }) {
+  const myPosts = getMe()
+    ? posts.filter((post) => post.author._id === getMe()._id)
+    : [];
+
+  // posts.filter((post) => post.author._id === getMe()._id);
   return (
     <div className="admin-dash">
       <Header setLogged={setLogged} />
-      <h1 className="title">Admin Dash</h1>
+      {isLoggedIn() ? <h1 className="title">Your Posts</h1> : null}
       {!isLoggedIn() ? (
         <LogIn setLogged={setLogged} />
       ) : (
-        <div className="content"></div>
+        <div className="content">
+          <DashNewPost />
+          {myPosts.map((post) => (
+            <DashPost post={post} fetchFeed={fetchFeed} />
+          ))}
+        </div>
       )}
     </div>
   );
