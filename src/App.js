@@ -7,6 +7,7 @@ import Post from "./components/Post";
 import Footer from "./components/Footer";
 import AdminDash from "./components/AdminDash";
 import ScrollToTop from "./components/ScrollToTop";
+import NewPost from "./components/NewPost";
 import { isLoggedIn } from "./scripts/localStorage";
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
               />
             }
           />
+          <Route path="/new" element={<NewPost setLogged={setLogged} />} />
         </Routes>
       </Router>
       <Footer />

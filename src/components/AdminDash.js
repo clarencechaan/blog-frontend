@@ -11,7 +11,6 @@ function AdminDash({ setLogged, posts, fetchFeed }) {
     ? posts.filter((post) => post.author._id === getMe()._id)
     : [];
 
-  // posts.filter((post) => post.author._id === getMe()._id);
   return (
     <div className="admin-dash">
       <Header setLogged={setLogged} />
@@ -20,10 +19,12 @@ function AdminDash({ setLogged, posts, fetchFeed }) {
         <LogIn setLogged={setLogged} />
       ) : (
         <div className="content">
-          <DashNewPost />
-          {myPosts.map((post) => (
-            <DashPost post={post} fetchFeed={fetchFeed} />
-          ))}
+          <div className="post-list">
+            <DashNewPost />
+            {myPosts.map((post) => (
+              <DashPost post={post} fetchFeed={fetchFeed} />
+            ))}
+          </div>
         </div>
       )}
     </div>
