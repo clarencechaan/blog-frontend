@@ -1,25 +1,107 @@
 import Header from "./Header";
 import "../styles/NewPost.css";
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { getJWT } from "../scripts/localStorage";
 
-function NewPost({ setLogged }) {
-  const imgUrl = "https://i.imgur.com/QZ5lNQQ.jpg";
+function NewPost({ setLogged, fetchFeed }) {
+  const spanRef = useRef(null);
+  const imageRef = useRef(null);
+  const imgUrlInputRef = useRef(null);
+  let navigate = useNavigate();
+
+  async function uploadImage(file) {
+    const CLIENT_ID = "0ca5177e28d22b9";
+
+    let myHeaders = new Headers();
+    myHeaders.append("Authorization", `Client-ID ${CLIENT_ID}`);
+
+    let formdata = new FormData();
+    formdata.append("image", file);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: formdata,
+      redirect: "follow",
+    };
+
+    return fetch("https://api.imgur.com/3/image", requestOptions)
+      .then((response) => response.text())
+      .then((result) => JSON.parse(result).data.link)
+      .catch((error) => console.log("error", error));
+  }
+
+  async function handleImagePicked(e) {
+    if (!e.target.files[0]) return;
+    if (e.target.files[0].size > 10485760) {
+      alert("File is too big. Max size is 10MB.");
+      return;
+    }
+
+    spanRef.current.hidden = false;
+    spanRef.current.innerText = "Uploading...";
+    imageRef.current.hidden = true;
+    imageRef.current.src = await uploadImage(e.target.files[0]);
+    imageRef.current.hidden = false;
+    imgUrlInputRef.current.value = imageRef.current.src;
+    spanRef.hidden = true;
+  }
+
+  async function uploadPost(event) {
+    const img_url = event.target[1].value;
+    const title = event.target[2].value;
+    const body = event.target[3].value;
+    const published = event.target[4].checked;
+
+    const post = { title, body, published, img_url };
+    console.log(post);
+
+    const url = "http://localhost:3000/api/posts/";
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getJWT(),
+    };
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(post),
+    });
+    const resPost = await response.json();
+    return resPost._id;
+  }
+
+  async function handleSubmitd(event) {
+    event.preventDefault();
+    const postId = await uploadPost(event);
+    await fetchFeed();
+    navigate("/posts/" + postId);
+  }
+
   return (
     <div className="new-post">
       <Header setLogged={setLogged} />
       <div className="content">
         <h1 className="title">Create New Post</h1>
-        <form action="">
+        <form action="" onSubmit={handleSubmitd}>
           <div className="data">
             <div className="image-input">
               <label htmlFor="image">
-                <span>+ Upload an Image (PNG/JPG)</span>
-                <img alt="" />
+                <span ref={spanRef}>+ Upload an Image (PNG/JPG)</span>
+                <img alt="" ref={imageRef} />
               </label>
               <input
                 type="file"
                 id="image"
                 accept="image/png, image/jpeg"
                 hidden
+                onChange={handleImagePicked}
+              />
+              <input
+                id="img-url"
+                name="img_url"
+                ref={imgUrlInputRef}
                 required
               />
             </div>

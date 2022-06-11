@@ -31,6 +31,7 @@
   border: 1px solid gray;
   height: 500px;
   width: 500px;
+  position: relative;
 }
 
 .new-post .content form .image-input label {
@@ -108,4 +109,12 @@
 
 .new-post .content form .action-bar button:hover {
   background-color: rgb(56, 56, 56);
+}
+
+.new-post input#img-url {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  bottom: 0;
+  position: absolute;
 }

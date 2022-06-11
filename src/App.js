@@ -57,7 +57,10 @@ function App() {
               />
             }
           />
-          <Route path="/new" element={<NewPost setLogged={setLogged} />} />
+          <Route
+            path="/new"
+            element={<NewPost setLogged={setLogged} fetchFeed={fetchFeed} />}
+          />
         </Routes>
       </Router>
       <Footer />

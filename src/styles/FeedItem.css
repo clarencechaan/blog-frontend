@@ -104,7 +104,6 @@
 .feed-item .content-preview {
   display: flex;
   flex-direction: column;
-  min-height: 263px;
   background-color: white;
   padding: 36px 50px 0 50px;
   position: relative;

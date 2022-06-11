@@ -55,9 +55,7 @@ function DashPost({ post, fetchFeed }) {
         <Link to={"/posts/" + post._id}>
           <h3 className="title">{post.title}</h3>
         </Link>
-        <div className="date">
-          {post.publish_date ? formatDate(post.publish_date) : "Unpublished"}
-        </div>
+        <div className="date">{formatDate(post.publish_date)}</div>
         {!confirmDeleteShown ? (
           <div className="actions">
             <span>Published?</span>
