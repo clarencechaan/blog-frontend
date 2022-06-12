@@ -3,6 +3,7 @@ import "../styles/NewPost.css";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { getJWT } from "../scripts/localStorage";
+import { Link } from "react-router-dom";
 
 function NewPost({ setLogged, fetchFeed }) {
   const spanRef = useRef(null);
@@ -129,6 +130,7 @@ function NewPost({ setLogged, fetchFeed }) {
               <input type="checkbox" defaultChecked={true} />
               <span className="slider round"></span>
             </label>
+            <Link to="/admin">Cancel</Link>
             <button type="submit">Submit</button>
           </div>
         </form>

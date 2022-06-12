@@ -58,7 +58,7 @@ function DashPost({ post, fetchFeed }) {
         <div className="date">{formatDate(post.publish_date)}</div>
         {!confirmDeleteShown ? (
           <div className="actions">
-            <span>Published?</span>
+            <span>Publish</span>
             <label className="published switch">
               <input
                 type="checkbox"

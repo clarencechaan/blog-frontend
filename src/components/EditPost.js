@@ -2,6 +2,7 @@ import Header from "./Header";
 import { useRef, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getJWT } from "../scripts/localStorage";
+import { Link } from "react-router-dom";
 
 function EditPost({ setLogged, fetchFeed }) {
   const [post, setPost] = useState({
@@ -166,6 +167,7 @@ function EditPost({ setLogged, fetchFeed }) {
               />
               <span className="slider round"></span>
             </label>
+            <Link to="/admin">Cancel</Link>
             <button type="submit">Submit</button>
           </div>
         </form>
