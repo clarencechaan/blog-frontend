@@ -22,7 +22,7 @@ function AdminDash({ setLogged, posts, fetchFeed }) {
           <div className="post-list">
             <DashNewPost />
             {myPosts.map((post) => (
-              <DashPost post={post} fetchFeed={fetchFeed} />
+              <DashPost post={post} fetchFeed={fetchFeed} key={post._id} />
             ))}
           </div>
         </div>

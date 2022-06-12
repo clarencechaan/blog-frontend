@@ -98,7 +98,6 @@ function EditPost({ setLogged, fetchFeed }) {
   }
 
   function handlePublishedChanged(event) {
-    console.log(event.target);
     setPost((post) => ({ ...post, published: event.target.checked }));
   }
 
