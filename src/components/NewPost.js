@@ -89,7 +89,7 @@ function NewPost({ setLogged, fetchFeed }) {
             <div className="image-input">
               <label htmlFor="image">
                 <span ref={spanRef}>+ Upload an Image (PNG/JPG)</span>
-                <img alt="" ref={imageRef} />
+                <img alt="" ref={imageRef} hidden />
               </label>
               <input
                 type="file"

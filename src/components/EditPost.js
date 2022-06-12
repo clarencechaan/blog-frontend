@@ -25,6 +25,7 @@ function EditPost({ setLogged, fetchFeed }) {
     const response = await fetch("http://localhost:3000/api/posts/" + postId);
     const post = await response.json();
     setPost(post);
+    imageRef.current.hidden = false;
   }
 
   async function uploadImage(file) {
@@ -114,8 +115,10 @@ function EditPost({ setLogged, fetchFeed }) {
           <div className="data">
             <div className="image-input">
               <label htmlFor="image">
-                <span ref={spanRef}>+ Upload an Image (PNG/JPG)</span>
-                <img src={post.img_url} alt="" ref={imageRef} />
+                <span ref={spanRef} hidden>
+                  + Upload an Image (PNG/JPG)
+                </span>
+                <img src={post.img_url} alt="" ref={imageRef} hidden />
               </label>
               <input
                 type="file"
