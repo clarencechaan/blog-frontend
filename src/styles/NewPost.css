@@ -102,13 +102,13 @@
   cursor: pointer;
   color: white;
   border: 1px solid black;
-  background-color: black;
+  background-color: rgb(38, 38, 38);
   margin-left: 8px;
   font-weight: 500;
 }
 
 .new-post .content form .action-bar button:hover {
-  background-color: rgb(56, 56, 56);
+  background-color: rgb(70, 70, 70);
 }
 
 .new-post input#img-url {

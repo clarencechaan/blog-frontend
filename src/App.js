@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import AdminDash from "./components/AdminDash";
 import ScrollToTop from "./components/ScrollToTop";
 import NewPost from "./components/NewPost";
+import EditPost from "./components/EditPost";
 import { isLoggedIn } from "./scripts/localStorage";
 
 function App() {
@@ -60,6 +61,10 @@ function App() {
           <Route
             path="/new"
             element={<NewPost setLogged={setLogged} fetchFeed={fetchFeed} />}
+          />
+          <Route
+            path="/posts/:postId/edit"
+            element={<EditPost setLogged={setLogged} fetchFeed={fetchFeed} />}
           />
         </Routes>
       </Router>

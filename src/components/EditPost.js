@@ -1,14 +1,30 @@
 import Header from "./Header";
-import "../styles/NewPost.css";
-import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { getJWT } from "../scripts/localStorage";
 
-function NewPost({ setLogged, fetchFeed }) {
+function EditPost({ setLogged, fetchFeed }) {
+  const [post, setPost] = useState({
+    title: "",
+    body: "",
+    published: false,
+    img_url: "",
+  });
   const spanRef = useRef(null);
   const imageRef = useRef(null);
   const imgUrlInputRef = useRef(null);
   let navigate = useNavigate();
+  const { postId } = useParams();
+
+  useEffect(() => {
+    fetchPost();
+  }, [postId]);
+
+  async function fetchPost() {
+    const response = await fetch("http://localhost:3000/api/posts/" + postId);
+    const post = await response.json();
+    setPost(post);
+  }
 
   async function uploadImage(file) {
     const CLIENT_ID = "0ca5177e28d22b9";
@@ -42,53 +58,64 @@ function NewPost({ setLogged, fetchFeed }) {
     spanRef.current.hidden = false;
     spanRef.current.innerText = "Uploading...";
     imageRef.current.hidden = true;
-    imageRef.current.src = await uploadImage(e.target.files[0]);
+    const imgUrl = await uploadImage(e.target.files[0]);
+    setPost((post) => ({
+      ...post,
+      img_url: imgUrl,
+    }));
     imageRef.current.hidden = false;
-    imgUrlInputRef.current.value = imageRef.current.src;
     spanRef.hidden = true;
   }
 
-  async function uploadPost(event) {
-    const img_url = event.target[1].value;
-    const title = event.target[2].value;
-    const body = event.target[3].value;
-    const published = event.target[4].checked;
-
-    const post = { title, body, published, img_url };
-
-    const url = "http://localhost:3000/api/posts/";
+  async function uploadPost() {
+    const url = "http://localhost:3000/api/posts/" + postId;
     const headers = {
       "Content-Type": "application/json",
       Authorization: "Bearer " + getJWT(),
     };
 
-    const response = await fetch(url, {
-      method: "POST",
+    await fetch(url, {
+      method: "PUT",
       headers: headers,
       body: JSON.stringify(post),
     });
-    const resPost = await response.json();
-    return resPost._id;
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const postId = await uploadPost(event);
+    await uploadPost(event);
     await fetchFeed();
     navigate("/posts/" + postId);
+  }
+
+  function handleTitleChanged(event) {
+    setPost((post) => ({ ...post, title: event.target.value }));
+  }
+
+  function handleBodyChanged(event) {
+    setPost((post) => ({ ...post, body: event.target.value }));
+  }
+
+  function handlePublishedChanged(event) {
+    console.log(event.target);
+    setPost((post) => ({ ...post, published: event.target.checked }));
+  }
+
+  function handleImgUrlChanged(event) {
+    setPost((post) => ({ ...post, img_url: event.target.value }));
   }
 
   return (
     <div className="new-post">
       <Header setLogged={setLogged} />
       <div className="content">
-        <h1 className="title">Create New Post</h1>
+        <h1 className="title">Edit Post</h1>
         <form action="" onSubmit={handleSubmit}>
           <div className="data">
             <div className="image-input">
               <label htmlFor="image">
                 <span ref={spanRef}>+ Upload an Image (PNG/JPG)</span>
-                <img alt="" ref={imageRef} />
+                <img src={post.img_url} alt="" ref={imageRef} />
               </label>
               <input
                 type="file"
@@ -101,6 +128,8 @@ function NewPost({ setLogged, fetchFeed }) {
                 id="img-url"
                 name="img_url"
                 ref={imgUrlInputRef}
+                value={post.img_url}
+                onChange={handleImgUrlChanged}
                 required
               />
             </div>
@@ -111,6 +140,8 @@ function NewPost({ setLogged, fetchFeed }) {
                 id="title"
                 minLength="1"
                 maxLength="42"
+                value={post.title}
+                onChange={handleTitleChanged}
                 required
               />
               <label htmlFor="body">Body</label>
@@ -119,14 +150,20 @@ function NewPost({ setLogged, fetchFeed }) {
                 id="body"
                 minLength="1"
                 maxLength="10000"
+                value={post.body}
+                onChange={handleBodyChanged}
                 required
-              ></textarea>
+              />
             </div>
           </div>
           <div className="action-bar">
             <span>Publish</span>
             <label className="switch">
-              <input type="checkbox" defaultChecked={true} />
+              <input
+                type="checkbox"
+                checked={post.published}
+                onChange={handlePublishedChanged}
+              />
               <span className="slider round"></span>
             </label>
             <button type="submit">Submit</button>
@@ -137,4 +174,4 @@ function NewPost({ setLogged, fetchFeed }) {
   );
 }
 
-export default NewPost;
+export default EditPost;

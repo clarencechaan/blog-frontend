@@ -67,7 +67,7 @@ function DashPost({ post, fetchFeed }) {
               />
               <span className="slider round"></span>
             </label>
-            <Link to="/">Edit</Link>
+            <Link to={"/posts/" + post._id + "/edit"}>Edit</Link>
             <button className="delete-btn" onClick={handleDeleteBtnClicked}>
               Delete
             </button>

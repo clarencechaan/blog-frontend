@@ -105,7 +105,6 @@ function Post({ setLogged }) {
                 <div key={"para" + idx}>
                   {para}
                   <br />
-                  <br />
                 </div>
               ))}
             </div>
