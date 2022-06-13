@@ -8,7 +8,6 @@ import CommentForm from "./CommentForm";
 import CommentsFeed from "./CommentsFeed";
 import Header from "./Header";
 import { formatDate } from "../scripts/datetimeConversion";
-import { getMe } from "../scripts/localStorage";
 
 function Post({ setLogged }) {
   const [imgPreviewVisible, setImgPreviewVisible] = useState(false);
@@ -16,7 +15,6 @@ function Post({ setLogged }) {
   const [comments, setComments] = useState([]);
   const [latestPosts, setLatestPosts] = useState([]);
   const { postId } = useParams();
-  const me = getMe();
 
   useEffect(() => {
     fetchPost();
@@ -25,14 +23,16 @@ function Post({ setLogged }) {
   }, [postId]);
 
   async function fetchPost() {
-    const response = await fetch("http://localhost:3000/api/posts/" + postId);
+    const response = await fetch(
+      "https://webrite-api.onrender.com/api/posts/" + postId
+    );
     const post = await response.json();
     setPost(post);
   }
 
   async function fetchComments() {
     const response = await fetch(
-      "http://localhost:3000/api/posts/" + postId + "/comments"
+      "https://webrite-api.onrender.com/api/posts/" + postId + "/comments"
     );
     const comments = await response.json();
     setComments(comments);
@@ -40,7 +40,7 @@ function Post({ setLogged }) {
 
   async function fetchLatestPosts() {
     const response = await fetch(
-      "http://localhost:3000/api/posts/published/latest"
+      "https://webrite-api.onrender.com/api/posts/published/latest"
     );
     const latest = await response.json();
     setLatestPosts(latest);

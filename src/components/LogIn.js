@@ -11,7 +11,7 @@ function LogIn({ setLogged }) {
   }
 
   async function logIn(username, password) {
-    const url = "http://localhost:3000/auth/login";
+    const url = "https://webrite-api.onrender.com/auth/login";
     const headers = {
       "Content-Type": "application/json",
     };

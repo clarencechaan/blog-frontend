@@ -25,7 +25,8 @@ function FeedItem({ post }) {
   }
 
   async function fetchCommentCount() {
-    const url = "http://localhost:3000/api/posts/" + post._id + "/comments";
+    const url =
+      "https://webrite-api.onrender.com/api/posts/" + post._id + "/comments";
     const response = await fetch(url);
     const comments = await response.json();
     setCommentCount(comments.length);

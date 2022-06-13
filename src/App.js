@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./styles/App.css";
 import Hero from "./components/Hero";
@@ -21,7 +21,7 @@ function App() {
   }, []);
 
   async function fetchFeed() {
-    const response = await fetch("http://localhost:3000/api/posts");
+    const response = await fetch("https://webrite-api.onrender.com/api/posts");
     const posts = await response.json();
     setPosts(posts);
   }

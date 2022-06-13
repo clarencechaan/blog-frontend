@@ -57,7 +57,7 @@ function NewPost({ setLogged, fetchFeed }) {
 
     const post = { title, body, published, img_url };
 
-    const url = "http://localhost:3000/api/posts/";
+    const url = "https://webrite-api.onrender.com/api/posts/";
     const headers = {
       "Content-Type": "application/json",
       Authorization: "Bearer " + getJWT(),

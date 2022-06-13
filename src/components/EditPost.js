@@ -22,7 +22,9 @@ function EditPost({ setLogged, fetchFeed }) {
   }, [postId]);
 
   async function fetchPost() {
-    const response = await fetch("http://localhost:3000/api/posts/" + postId);
+    const response = await fetch(
+      "https://webrite-api.onrender.com/api/posts/" + postId
+    );
     const post = await response.json();
     setPost(post);
     imageRef.current.hidden = false;
@@ -70,7 +72,7 @@ function EditPost({ setLogged, fetchFeed }) {
   }
 
   async function uploadPost() {
-    const url = "http://localhost:3000/api/posts/" + postId;
+    const url = "https://webrite-api.onrender.com/api/posts/" + postId;
     const headers = {
       "Content-Type": "application/json",
       Authorization: "Bearer " + getJWT(),

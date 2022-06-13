@@ -6,7 +6,8 @@ function CommentForm({ postId, fetchComments }) {
     const name = event.target[1].value;
     const comment = { text, name };
 
-    const url = "http://localhost:3000/api/posts/" + postId + "/comments";
+    const url =
+      "https://webrite-api.onrender.com/api/posts/" + postId + "/comments";
     const headers = {
       "Content-Type": "application/json",
     };
