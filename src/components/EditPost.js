@@ -23,7 +23,7 @@ function EditPost({ setLogged, fetchFeed }) {
 
   async function fetchPost() {
     const response = await fetch(
-      "https://webrite-api.onrender.com/api/posts/" + postId
+      "https://webrite-api.herokuapp.com/api/posts/" + postId
     );
     const post = await response.json();
     setPost(post);
@@ -72,7 +72,7 @@ function EditPost({ setLogged, fetchFeed }) {
   }
 
   async function uploadPost() {
-    const url = "https://webrite-api.onrender.com/api/posts/" + postId;
+    const url = "https://webrite-api.herokuapp.com/api/posts/" + postId;
     const headers = {
       "Content-Type": "application/json",
       Authorization: "Bearer " + getJWT(),

@@ -11,7 +11,7 @@ function SidebarItem({ post }) {
 
   async function fetchCommentCount() {
     const response = await fetch(
-      "https://webrite-api.onrender.com/api/posts/" + post._id + "/comments"
+      "https://webrite-api.herokuapp.com/api/posts/" + post._id + "/comments"
     );
     const comments = await response.json();
     setCommentCount(comments.length);
