@@ -3,6 +3,7 @@ import FeedItem from "./FeedItem";
 import "../styles/Feed.css";
 
 function Feed({ publishedPosts }) {
+  const [loading, setLoading] = useState(true);
   const [numOfColumns, setNumOfColumns] = useState(4);
 
   useEffect(() => {
@@ -20,6 +21,12 @@ function Feed({ publishedPosts }) {
       .matchMedia("(max-width:384px)")
       .addEventListener("change", updateNumOfCols);
   }, []);
+
+  useEffect(() => {
+    if (publishedPosts.length) {
+      setLoading(false);
+    }
+  }, [publishedPosts]);
 
   function getFeedItems() {
     let columns = [];
@@ -50,7 +57,26 @@ function Feed({ publishedPosts }) {
     }
   }
 
-  return <div className="feed">{getFeedItems()}</div>;
+  return (
+    <div className="feed">
+      {loading ? (
+        <div className="loading-container">
+          <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div className="loading-message">
+            Loading... This may initially take 15-30s as the Heroku dyno first
+            wakes up.
+          </div>
+        </div>
+      ) : (
+        getFeedItems()
+      )}
+    </div>
+  );
 }
 
 export default Feed;
