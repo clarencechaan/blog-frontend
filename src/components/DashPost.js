@@ -6,7 +6,7 @@ import { useState } from "react";
 function DashPost({ post, fetchFeed }) {
   const [confirmDeleteShown, setConfirmDeleteShown] = useState(false);
   async function updatePublished(event) {
-    const url = "https://webrite-api.herokuapp.com/api/posts/" + post._id;
+    const url = "https://webrite-api.onrender.com/api/posts/" + post._id;
     const headers = {
       "Content-Type": "application/json",
       Authorization: "Bearer " + getJWT(),
@@ -23,7 +23,7 @@ function DashPost({ post, fetchFeed }) {
   }
 
   async function deletePost() {
-    const url = "https://webrite-api.herokuapp.com/api/posts/" + post._id;
+    const url = "https://webrite-api.onrender.com/api/posts/" + post._id;
     const headers = {
       Authorization: "Bearer " + getJWT(),
     };

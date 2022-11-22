@@ -68,8 +68,8 @@ function Feed({ publishedPosts }) {
             <div></div>
           </div>
           <div className="loading-message">
-            Loading... This may initially take 15-30s as the Heroku dyno first
-            wakes up.
+            Loading... This may initially take 15-30s as the Render Web Service
+            first wakes up.
           </div>
         </div>
       ) : (

@@ -7,7 +7,7 @@ function CommentForm({ postId, fetchComments }) {
     const comment = { text, name };
 
     const url =
-      "https://webrite-api.herokuapp.com/api/posts/" + postId + "/comments";
+      "https://webrite-api.onrender.com/api/posts/" + postId + "/comments";
     const headers = {
       "Content-Type": "application/json",
     };

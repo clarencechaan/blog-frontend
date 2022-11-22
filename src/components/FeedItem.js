@@ -26,7 +26,7 @@ function FeedItem({ post }) {
 
   async function fetchCommentCount() {
     const url =
-      "https://webrite-api.herokuapp.com/api/posts/" + post._id + "/comments";
+      "https://webrite-api.onrender.com/api/posts/" + post._id + "/comments";
     const response = await fetch(url);
     const comments = await response.json();
     setCommentCount(comments.length);

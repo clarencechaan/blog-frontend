@@ -21,7 +21,7 @@ function App() {
   }, []);
 
   async function fetchFeed() {
-    const response = await fetch("https://webrite-api.herokuapp.com/api/posts");
+    const response = await fetch("https://webrite-api.onrender.com/api/posts");
     const posts = await response.json();
     setPosts(posts);
   }

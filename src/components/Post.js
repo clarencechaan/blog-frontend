@@ -24,7 +24,7 @@ function Post({ setLogged }) {
 
   async function fetchPost() {
     const response = await fetch(
-      "https://webrite-api.herokuapp.com/api/posts/" + postId
+      "https://webrite-api.onrender.com/api/posts/" + postId
     );
     const post = await response.json();
     setPost(post);
@@ -32,7 +32,7 @@ function Post({ setLogged }) {
 
   async function fetchComments() {
     const response = await fetch(
-      "https://webrite-api.herokuapp.com/api/posts/" + postId + "/comments"
+      "https://webrite-api.onrender.com/api/posts/" + postId + "/comments"
     );
     const comments = await response.json();
     setComments(comments);
@@ -40,7 +40,7 @@ function Post({ setLogged }) {
 
   async function fetchLatestPosts() {
     const response = await fetch(
-      "https://webrite-api.herokuapp.com/api/posts/published/latest"
+      "https://webrite-api.onrender.com/api/posts/published/latest"
     );
     const latest = await response.json();
     setLatestPosts(latest);
